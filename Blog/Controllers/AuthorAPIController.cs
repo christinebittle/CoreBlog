@@ -17,34 +17,49 @@ namespace Blog.Controllers
             _context = context;
         }
 
+
+        /// <summary>
+        /// Returns a list of Authors in the system
+        /// </summary>
+        /// <example>
+        /// GET api/Author/ListAuthorNames -> ["Brian Smith","Jillian Montgomery",..]
+        /// </example>
+        /// <returns>
+        /// A list of strings, formatted "{First Name} {Last Name}"
+        /// </returns>
         [HttpGet]
         [Route(template:"ListAuthorNames")]
         public List<string> ListAuthorNames()
         {
-            //Create an empty list of Author Names
+            // Create an empty list of Author Names
             List<string> AuthorNames = new List<string>();
 
-            using(MySqlConnection Connection = _context.AccessDatabase())
+            // 'using' will close the connection after the code executes
+            using (MySqlConnection Connection = _context.AccessDatabase())
             {
                 Connection.Open();
                 //Establish a new command (query) for our database
-                MySqlCommand cmd = Connection.CreateCommand();
+                MySqlCommand Command = Connection.CreateCommand();
 
                 //SQL QUERY
-                cmd.CommandText = "select * from authors";
+                Command.CommandText = "select * from authors";
 
-                //Gather Result Set of Query into a variable
-                MySqlDataReader ResultSet = cmd.ExecuteReader();
-
-                //Loop Through Each Row the Result Set
-                while (ResultSet.Read())
+                // Gather Result Set of Query into a variable
+                using (MySqlDataReader ResultSet = Command.ExecuteReader())
                 {
-                    //Access Column information by the DB column name as an index
-                    string AuthorName = ResultSet["authorfname"] + " " + ResultSet["authorlname"];
-                    //Add the Author Name to the List
-                    AuthorNames.Add(AuthorName);
-                }
+                    //Loop Through Each Row the Result Set
+                    while (ResultSet.Read())
+                    {
+                        string AuthorFName = ResultSet["authorfname"].ToString();
+                        string AuthorLName = ResultSet["authorlname"].ToString();
+                        //Access Column information by the DB column name as an index
+                        string AuthorName = $"{AuthorFName} {AuthorLName}";
+                        //Add the Author Name to the List
+                        AuthorNames.Add(AuthorName);
+                    }
+                }                    
             }
+            
 
             //Return the final list of author names
             return AuthorNames;
