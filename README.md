@@ -25,7 +25,8 @@ This example connects our server to a MySQL Database with MySql.Data.MySqlClient
 8. : Test to see if the ListAuthorNames API responds with information about authors.
     - GET api/Author/ListAuthorNames
 
-Test Your Understanding! (Exercises)
+## Exercises
+Test Your Understanding by accomplishing these tasks!
 - Create a TagAPIController.cs
 - Create a method ListTagNames which outputs a List<string> of the tag name and Tag Color
 - Create an ArticleAPICotroller.cs
