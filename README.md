@@ -24,6 +24,14 @@ This example connects our server to a MySQL Database with MySql.Data.MySqlClient
 7. Run the project debugging mode (F5) **while** the database environment is running
 8. : Test to see if the ListAuthorNames API responds with information about authors.
     - GET api/Author/ListAuthorNames
+   
+## Common Errors
+- 'MySql.Data.MySqlClient.MySqlException: 'Unable to connect to any of the specified MySQL hosts, Inner Exception: No connection could be made because the target machine actively refused it'
+    - Check that your database is running AND the connection string settings (server, port, database) are accurate!
+- 'MySql.Data.MySqlClient.MySqlException: 'Authentication to host .. failed with message: Access denied for user ..'
+    - Check that the user name and password fields are accurate!
+- MAMP doesn't work!
+    - [Try XAMMP](https://www.apachefriends.org/)
 
 ## Exercises
 Test Your Understanding by accomplishing these tasks!
