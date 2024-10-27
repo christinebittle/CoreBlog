@@ -23,7 +23,7 @@ This example connects our server to a MySQL Database with MySql.Data.MySqlClient
     - If not installed, go to "Tools" > "Nuget Package Manager" > "Manage Nuget Packages for Solution" > "Browse" > type "MySQL.Data" > "Install"
 7. Run the project debugging mode (F5) **while** the database environment is running
 8. : Test to see if the ListAuthors WebAPI method returns information about authors.
-    - GET api/AuthorData/ListAuthors
+    - GET api/Author/ListAuthorNames
 
 Test Your Understanding! (Exercises)
 - Create a TagAPIController.cs
