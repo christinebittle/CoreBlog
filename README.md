@@ -31,8 +31,8 @@ This example connects our server to a MySQL Database with MySql.Data.MySqlClient
 - 'MySql.Data.MySqlClient.MySqlException: 'Authentication to host .. failed with message: Access denied for user ..'
     - Check that the user name and password fields are accurate!
 - MAMP doesn't work!
-    - [Try XAMMP](https://www.apachefriends.org/)
-
+    - [Try XAMMP](https://www.apachefriends.org/), or any MySQL environment you have access to with a connection string.
+   
 ## Exercises
 Test Your Understanding by accomplishing these tasks!
 - Create a TagAPIController.cs
