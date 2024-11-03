@@ -1,10 +1,12 @@
 using System;
 using Blog.Models;
+using Blog.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
 
 // Swagger API help pages
 builder.Services.AddEndpointsApiExplorer();
@@ -12,6 +14,8 @@ builder.Services.AddSwaggerGen();
 
 // Database
 builder.Services.AddScoped<BlogDbContext>();
+// API for now, but should be added as separate Author Service
+builder.Services.AddScoped<AuthorAPIController>();
 
 var app = builder.Build();
 
