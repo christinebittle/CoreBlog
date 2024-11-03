@@ -35,7 +35,11 @@ This example connects our server to a MySQL Database with MySql.Data.MySqlClient
    
 ## Exercises
 Test Your Understanding by accomplishing these tasks!
-- Create a TagAPIController.cs
-- Create a method ListTagNames which outputs a List<string> of the tag name and color
-- Create an ArticleAPICotroller.cs
+### Exercise 3
+- Create Article.cs model
+- Create "Find Article" functionality in Article Controller
 - Create a method ListArticles which outputs a List<string> of the title and date
+### Exercise 4
+- Create Tag.cs model
+- Create "Find Tag" functionality in Tag Controller
+- Create a method ListTagNames which outputs a List<string> of the tag name and color
