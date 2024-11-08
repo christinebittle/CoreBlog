@@ -1,4 +1,5 @@
-﻿namespace Blog.Models
+﻿
+namespace Blog.Models
 {
     public class Author
     {

@@ -1,0 +1,9 @@
+﻿@model IEnumerable<Blog.Models.Tag>
+
+<h1>I want to list the tags in the database</h1>
+
+@foreach(Blog.Models.Tag CurrentTag in Model)
+{
+    <div><a href="/TagPage/Show/@CurrentTag.TagId">@CurrentTag.TagName</a></div>
+
+}
