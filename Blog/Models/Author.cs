@@ -12,5 +12,7 @@
         public DateTime AuthorJoinDate { get; set; }
 
         public string? AuthorBio { get; set; }
+
+        
     }
 }

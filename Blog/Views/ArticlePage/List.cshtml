@@ -1,0 +1,9 @@
+﻿@model IEnumerable<Blog.Models.Article>
+
+<h1>This webpage will show information about articles</h1>
+
+@foreach(Blog.Models.Article CurrentArticle in Model)
+{
+    <div><a href="/ArticlePage/Show/@CurrentArticle.ArticleId">@CurrentArticle.ArticleTitle</a></div>
+
+}
