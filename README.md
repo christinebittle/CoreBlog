@@ -36,6 +36,6 @@ This example shows a search feature using parameterized SQL.
 ## Exercises
 Test Your Understanding by accomplishing these tasks!
 ### Exercise 5
-- Create an Article Search function to search for articles by their title or body
+- Create an Article Search function to search for articles by their title
 ### Exercise 6
 - Create a tag search function to search for tags by their tag name
