@@ -16,10 +16,10 @@ namespace Blog.Controllers
             _api = api;
         }
 
-        //GET : AuthorPage/List
-        public IActionResult List()
+        //GET : AuthorPage/List/SearchKey={SearchKey}
+        public IActionResult List(string SearchKey)
         {
-            List<Author> Authors = _api.ListAuthors();
+            List<Author> Authors = _api.ListAuthors(SearchKey);
             return View(Authors);
         }
 

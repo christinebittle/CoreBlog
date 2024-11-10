@@ -12,5 +12,8 @@
         public DateTime AuthorJoinDate { get; set; }
 
         public string? AuthorBio { get; set; }
+
+        // number of articles that author has written
+        public int NumArticles { get; set; }
     }
 }

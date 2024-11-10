@@ -19,17 +19,17 @@ namespace Blog.Controllers
 
 
         /// <summary>
-        /// Returns a list of Authors in the system
+        /// Returns a list of Authors in the system. If a search key is included, search for authors with a first or last name matching.
         /// </summary>
         /// <example>
-        /// GET api/Author/ListAuthors -> [{"AuthorId":1,"AuthorFname":"Brian", "AuthorLName":"Smith"},{"AuthorId":2,"AuthorFname":"Jillian", "AuthorLName":"Montgomery"},..]
+        /// GET api/Author/ListAuthors?SearchKey=Sam -> [{"AuthorId":1,"AuthorFname":"Sam", "AuthorLName":"Smith"},{"AuthorId":2,"AuthorFname":"Jillian", "AuthorLName":"Samuel"},..]
         /// </example>
         /// <returns>
         /// A list of author objects 
         /// </returns>
         [HttpGet]
         [Route(template:"ListAuthors")]
-        public List<Author> ListAuthors()
+        public List<Author> ListAuthors(string SearchKey=null)
         {
             // Create an empty list of Authors
             List<Author> Authors = new List<Author>();
@@ -41,8 +41,18 @@ namespace Blog.Controllers
                 //Establish a new command (query) for our database
                 MySqlCommand Command = Connection.CreateCommand();
 
+
+                string query = "select * from authors";
+                
+                // search criteria, first, last or first + last
+                if (SearchKey != null)
+                {
+                    query += " where lower(authorfname) like @key or lower(authorlname) like @key or lower(concat(authorfname,' ',authorlname)) like @key";
+                    Command.Parameters.AddWithValue("@key",$"%{SearchKey}%");
+                }
                 //SQL QUERY
-                Command.CommandText = "select * from authors";
+                Command.CommandText = query;
+                Command.Prepare();
 
                 // Gather Result Set of Query into a variable
                 using (MySqlDataReader ResultSet = Command.ExecuteReader())
@@ -84,7 +94,7 @@ namespace Blog.Controllers
         /// Returns an author in the database by their ID
         /// </summary>
         /// <example>
-        /// GET api/Author/FindAuthor/3 -> {"AuthorId":3,"AuthorFname":"Sam","AuthorLName":"Cooper"}
+        /// GET api/Author/FindAuthor/3 -> {"AuthorId":3,"AuthorFname":"Sam","AuthorLName":"Cooper","AuthorJoinDate":"2020-10-11", "AuthorBio":"Fun Guy", "NumArticles":1}
         /// </example>
         /// <returns>
         /// A matching author object by its ID. Empty object if Author not found
@@ -104,8 +114,10 @@ namespace Blog.Controllers
                 //Establish a new command (query) for our database
                 MySqlCommand Command = Connection.CreateCommand();
 
-                // @id is replaced with a 'sanitized' id
-                Command.CommandText = "select * from authors where authorid=@id";
+                // @id is replaced with a sanitized id
+                // 'how many' 'articles' <> count(articleid)
+                // 'for each' 'author' <> group by (authorid)
+                Command.CommandText = "select authors.*, count(articles.articleid) as numarticles from authors left join articles on (articles.authorid=authors.authorid) where authors.authorid=@id group by authors.authorid";
                 Command.Parameters.AddWithValue("@id", id);
 
                 // Gather Result Set of Query into a variable
@@ -122,11 +134,14 @@ namespace Blog.Controllers
                         DateTime AuthorJoinDate = Convert.ToDateTime(ResultSet["authorjoindate"]);
                         string AuthorBio = ResultSet["authorbio"].ToString();
 
+                        int NumArticles = Convert.ToInt32(ResultSet["numarticles"]);
+
                         SelectedAuthor.AuthorId = Id;
                         SelectedAuthor.AuthorFName = FirstName;
                         SelectedAuthor.AuthorLName = LastName;
                         SelectedAuthor.AuthorBio = AuthorBio;
                         SelectedAuthor.AuthorJoinDate = AuthorJoinDate;
+                        SelectedAuthor.NumArticles = NumArticles;
                     }
                 }
             }
