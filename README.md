@@ -1,5 +1,5 @@
 # ASP.NET Core Blog Application
-This example connects our server to a MySQL Database with MySql.Data.MySqlClient.
+This example shows a search feature using parameterized SQL.
 
 - Models/BlogDbContext.cs
     - A class which represents the connection to the database. Be mindful of the connection string fields!
@@ -35,13 +35,7 @@ This example connects our server to a MySQL Database with MySql.Data.MySqlClient
    
 ## Exercises
 Test Your Understanding by accomplishing these tasks!
-### Exercise 3
-- Create Article.cs model
-- Create "Find Article" functionality in Article Controller
-- Create MVC Controller ArticlePageController
-- Create Views List and Show to List and Show Articles
-### Exercise 4
-- Create Tag.cs model
-- Create "Find Tag" functionality in Tag Controller
-- Create MVC Controller TagPageController
-- Create Views List and Show to List and Show Tags
+### Exercise 5
+- Create an Article Search function to search for articles by their title or body
+### Exercise 6
+- Create a tag search function to search for tags by their tag name
