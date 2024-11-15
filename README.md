@@ -35,7 +35,20 @@ This example shows a search feature using parameterized SQL.
    
 ## Exercises
 Test Your Understanding by accomplishing these tasks!
-### Exercise 5
-- Create an Article Search function to search for articles by their title
-### Exercise 6
-- Create a tag search function to search for tags by their tag name
+
+### Exercise 7
+- Build Add functionality with the Article API
+- Build Delete functionality with the Article API
+- Add and Delete Articles through web pages
+
+### Exercise 8
+- Build Add functionality with the Tag API
+- Build Delete functionality with the Tag API
+- Add and Delete Tags through web pages
+
+### Exercise 9 (bonus)
+- Use JS and AJAX to create an XMLHttpRequestObject
+- Set the request to /api/Author/Delete/{id}
+- Set the Http verb to DELETE
+- Send the request through JS
+- Monitor the network tab to see the response!
