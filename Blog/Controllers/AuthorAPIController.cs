@@ -47,7 +47,7 @@ namespace Blog.Controllers
                 // search criteria, first, last or first + last
                 if (SearchKey != null)
                 {
-                    query += " where lower(authorfname) like @key or lower(authorlname) like @key or lower(concat(authorfname,' ',authorlname)) like @key";
+                    query += " where lower(authorfname) like lower(@key) or lower(authorlname) like lower(@key) or lower(concat(authorfname,' ',authorlname)) like lower(@key)";
                     Command.Parameters.AddWithValue("@key",$"%{SearchKey}%");
                 }
                 //SQL QUERY
