@@ -1,0 +1,31 @@
+﻿<div id="containershow">
+    <nav>
+        <a class="navlink" href="/AuthorPage/List">Back To Authors</a>
+    </nav>
+    <h2>New Author</h2>
+    <form method="POST" action="/AuthorPage/Create">
+        <div class="inputrow">
+            <label for="AuthorFname">First Name:</label>
+            <input type="text" id="AuthorFname" name="AuthorFname" />
+
+        </div>
+        <div class="inputrow">
+            <label for="AuthorLname">Last Name:</label>
+            <input type="text" id="AuthorLname" name="AuthorLname" />
+
+        </div>
+        <div class="inputrow">
+            <label for="AuthorEmail">Email:</label>
+            <input type="text" id="AuthorEmail" name="AuthorEmail" />
+        </div>
+        <div class="inputrow">
+            <label for="AuthorBio">Biography:</label>
+            <div>
+                <textarea id="AuthorBio" name="AuthorBio"></textarea>
+            </div>
+        </div>
+        <div class="inputrow">
+            <input type="submit" value="Create Author" />
+        </div>
+    </form>
+</div>

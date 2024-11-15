@@ -134,6 +134,9 @@ namespace Blog.Controllers
                         DateTime AuthorJoinDate = Convert.ToDateTime(ResultSet["authorjoindate"]);
                         string AuthorBio = ResultSet["authorbio"].ToString();
 
+                        // hidden
+                        // string AuthorEmail = ResultSet["AuthorEmail"].ToString();
+
                         int NumArticles = Convert.ToInt32(ResultSet["numarticles"]);
 
                         SelectedAuthor.AuthorId = Id;
@@ -141,6 +144,7 @@ namespace Blog.Controllers
                         SelectedAuthor.AuthorLName = LastName;
                         SelectedAuthor.AuthorBio = AuthorBio;
                         SelectedAuthor.AuthorJoinDate = AuthorJoinDate;
+                        //SelectedAuthor.AuthorEmail = AuthorEmail;
                         SelectedAuthor.NumArticles = NumArticles;
                     }
                 }
@@ -149,6 +153,83 @@ namespace Blog.Controllers
 
             //Return the final list of author names
             return SelectedAuthor;
+        }
+
+
+        /// <summary>
+        /// Adds an author to the database
+        /// </summary>
+        /// <param name="AuthorData">Author Object</param>
+        /// <example>
+        /// POST: api/AuthorData/AddAuthor
+        /// Headers: Content-Type: application/json
+        /// Request Body:
+        /// {
+        ///	    "AuthorFname":"Christine",
+        ///	    "AuthorLname":"Bittle",
+        ///	    "AuthorBio":"Likes Coding!",
+        ///	    "AuthorEmail":"christine@test.ca"
+        /// } -> 409
+        /// </example>
+        /// <returns>
+        /// The inserted Author Id from the database if successful. 0 if Unsuccessful
+        /// </returns>
+        [HttpPost(template:"AddAuthor")]
+        public int AddAuthor([FromBody]Author AuthorData)
+        {
+            // 'using' will close the connection after the code executes
+            using (MySqlConnection Connection = _context.AccessDatabase())
+            {
+                Connection.Open();
+                //Establish a new command (query) for our database
+                MySqlCommand Command = Connection.CreateCommand();
+
+                // CURRENT_DATE() for the author join date in this context
+                // Other contexts the join date may be an input criteria!
+                Command.CommandText = "insert into authors (authorfname, authorlname, authorbio, authoremail, authorjoindate) values (@authorfname, @authorlname, @authorbio, @authoremail, CURRENT_DATE())";
+                Command.Parameters.AddWithValue("@authorfname", AuthorData.AuthorFName);
+                Command.Parameters.AddWithValue("@authorlname", AuthorData.AuthorLName);
+                Command.Parameters.AddWithValue("@authorbio", AuthorData.AuthorBio);
+                Command.Parameters.AddWithValue("@authoremail", AuthorData.AuthorEmail);
+
+                Command.ExecuteNonQuery();
+
+                return Convert.ToInt32(Command.LastInsertedId);
+
+            }
+            // if failure
+            return 0;
+        }
+
+
+        /// <summary>
+        /// Deletes an Author from the database
+        /// </summary>
+        /// <param name="AuthorId">Primary key of the author to delete</param>
+        /// <example>
+        /// DELETE: api/AuthorData/DeleteAuthor -> 1
+        /// </example>
+        /// <returns>
+        /// Number of rows affected by delete operation.
+        /// </returns>
+        [HttpDelete(template:"DeleteAuthor/{AuthorId}")]
+        public int DeleteAuthor(int AuthorId)
+        {
+            // 'using' will close the connection after the code executes
+            using (MySqlConnection Connection = _context.AccessDatabase())
+            {
+                Connection.Open();
+                //Establish a new command (query) for our database
+                MySqlCommand Command = Connection.CreateCommand();
+
+                
+                Command.CommandText = "delete from authors where authorid=@id";
+                Command.Parameters.AddWithValue("@id", AuthorId);
+                return Command.ExecuteNonQuery();
+
+            }
+            // if failure
+            return 0;
         }
     }
 }

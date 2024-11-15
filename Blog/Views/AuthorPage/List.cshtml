@@ -1,12 +1,12 @@
 ﻿@model IEnumerable<Blog.Models.Author>
 
+<a style="margin-bottom:10px;" href="/AuthorPage/New">Add Author</a>
 <form method="GET" action="/AuthorPage/List">
     <div>
         <input type="text" name="SearchKey"/>
         <input type="submit" value="Search" />
     </div>
 </form>
-
 @foreach (Blog.Models.Author Author in Model)
 {
     <div>

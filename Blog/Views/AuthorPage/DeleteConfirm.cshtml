@@ -1,0 +1,14 @@
+﻿@model Blog.Models.Author
+
+<div id="containershow">
+    <nav>
+        <a class="navlink" href="/AuthorPage/Show/@Model.AuthorId">Cancel</a>
+    </nav>
+    <h2>Are you sure you want to delete @Model.AuthorFName @Model.AuthorLName?</h2>
+    <p>This action cannot be undone.</p>
+    <form method="POST" action="/AuthorPage/Delete/@Model.AuthorId">
+        <button class="btn-warning">
+            Confirm Delete
+        </button>
+    </form>
+</div>

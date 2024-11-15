@@ -1,5 +1,6 @@
 ﻿@model Blog.Models.Author
 <h1>@Model.AuthorFName @Model.AuthorLName</h1>
+<a href="/AuthorPage/List">Back to List</a> <a class="alert-warning" href="/AuthorPage/DeleteConfirm/@Model.AuthorId">Delete</a>
 <p><span style="font-style:italic">Joined: @Model.AuthorJoinDate.ToString("yyyy-M-d")</span></p>
 <p><span style="font-style:italic">Articles Written: @Model.NumArticles</span></p>
 <p>@Model.AuthorBio</p>

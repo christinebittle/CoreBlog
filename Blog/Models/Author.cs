@@ -1,4 +1,6 @@
-﻿namespace Blog.Models
+﻿using Org.BouncyCastle.Asn1;
+
+namespace Blog.Models
 {
     public class Author
     {
@@ -12,6 +14,8 @@
         public DateTime AuthorJoinDate { get; set; }
 
         public string? AuthorBio { get; set; }
+
+        public string? AuthorEmail { get; set; }
 
         // number of articles that author has written
         public int NumArticles { get; set; }
