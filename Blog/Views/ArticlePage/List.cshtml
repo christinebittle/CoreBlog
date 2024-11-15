@@ -1,0 +1,13 @@
+﻿@model IEnumerable<Blog.Models.Article>
+
+<h1>Articles</h1>
+
+<form method="GET" action="/ArticlePage/List">
+    <input type="text" name="SearchKey" /> <input type="submit" value="Search"/>
+</form>
+
+@foreach (Blog.Models.Article CurrentArticle in Model)
+{
+    <div><a href="/ArticlePage/Show/@CurrentArticle.ArticleId">@CurrentArticle.ArticleTitle</a></div>
+
+}

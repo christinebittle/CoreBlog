@@ -17,6 +17,8 @@ builder.Services.AddScoped<BlogDbContext>();
 // API for now, but should be added as separate Author Service
 builder.Services.AddScoped<AuthorAPIController>();
 
+builder.Services.AddScoped<ArticleAPIController>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
