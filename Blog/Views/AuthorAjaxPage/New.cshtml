@@ -1,0 +1,83 @@
+﻿<h2>Author Add with AJAX</h2>
+<div id="containershow">
+	<nav>
+		<a class="navlink" href="/AuthorPage/List">Back To Authors</a>
+	</nav>
+	<h2>New Author</h2>
+	<div>
+		<div class="inputrow">
+			<label for="AuthorFname">First Name:</label>
+			<input type="text" id="AuthorFname" name="AuthorFname" />
+
+		</div>
+		<div class="inputrow">
+			<label for="AuthorLname">Last Name:</label>
+			<input type="text" id="AuthorLname" name="AuthorLname" />
+
+		</div>
+		<div class="inputrow">
+			<label for="AuthorEmail">Email:</label>
+			<input type="text" id="AuthorEmail" name="AuthorEmail" />
+		</div>
+		<div class="inputrow">
+			<label for="AuthorBio">Biography:</label>
+			<div>
+				<textarea id="AuthorBio" name="AuthorBio"></textarea>
+			</div>
+		</div>
+		<div class="inputrow">
+			<input type="submit" value="Create Author"  onclick="AddAuthor()"/>
+		</div>
+	</div>
+</div>
+
+
+<script>
+	// goal: send a request which looks like this:
+	// POST : https://localhost:xx/api/Author/AddAuthor
+	// with POST data of authorname, bio, email, etc.
+	// note: this can be factored to a separate JS file
+
+	function AddAuthor() {
+		var URL = "/api/Author/AddAuthor/";
+
+		var rq = new XMLHttpRequest();
+		// where is this request sent to?
+		// is the method GET or POST?
+		// what should we do with the response?
+
+		var AuthorFname = document.getElementById('AuthorFname').value;
+		var AuthorLname = document.getElementById('AuthorLname').value;
+		var AuthorEmail = document.getElementById('AuthorEmail').value;
+		var AuthorBio = document.getElementById('AuthorBio').value;
+
+
+
+		var AuthorData = {
+			"AuthorFname": AuthorFname,
+			"AuthorLname": AuthorLname,
+			"AuthorEmail": AuthorEmail,
+			"AuthorBio": AuthorBio
+		};
+
+
+		rq.open("POST", URL, true);
+		rq.setRequestHeader("Content-Type", "application/json");
+		rq.onreadystatechange = function () {
+			//ready state should be 4 AND status should be 200
+			if (rq.readyState == 4 && rq.status == 200) {
+				//request is successful and the request is finished
+
+				//API returns resource of author
+				AuthorId = rq.responseText;
+				window.location = "/AuthorPage/Show/" + AuthorId;
+
+			}
+
+		}
+		//POST information sent through the .send() method
+		rq.send(JSON.stringify(AuthorData));
+
+	}
+
+</script>

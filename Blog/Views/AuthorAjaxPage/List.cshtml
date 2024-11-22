@@ -1,0 +1,106 @@
+﻿<a style="margin-bottom:10px;" href="/AuthorAjaxPage/New">Add Author</a>
+
+<h2>AJAX List + Delete, Type to search!</h2>
+<div>
+    <input type="text" name="SearchKey" id="SearchKey" onkeyup="_ListAuthors(this);"/>
+</div>
+
+<div id="AuthorResults"></div>
+
+
+
+<script>
+	
+	// wrapper function that uses 300ms timer
+	// http request not sent on every key stroke
+	function _ListAuthors(d){
+		console.log('waiting..');
+		if (d.timer) clearTimeout(d.timer);
+		d.timer = setTimeout(ListAuthors(d),300);
+	}
+
+	// ajax list
+	function ListAuthors(d) {
+		
+		console.log('sending..');
+		var URL = "/api/Author/ListAuthors?SearchKey="+d.value;
+
+		var rq = new XMLHttpRequest();
+		
+		var AuthorResults = document.getElementById('AuthorResults');
+		AuthorResults.innerHTML = ""; //clear previous results
+
+		rq.open("GET", URL, true);
+		rq.setRequestHeader("Content-Type", "application/json");
+		rq.onreadystatechange = function () {
+			//ready state should be 4 AND status should be 200
+			if (rq.readyState == 4 && rq.status == 200) {
+				//request is successful and the request is finished
+				//console.log(rq.responseText);
+				var Authors = JSON.parse(rq.responseText);
+				for (var i = 0; i < Authors.length; i++)
+				{
+					//debugging line - very useful!
+					//console.log(Authors[i]);
+
+					//build Document Object Model
+					var row = document.createElement('div');
+					// link to see author
+					var link = document.createElement('a');
+					link.href = "/AuthorPage/Show/"+Authors[i].authorId;
+					link.style.marginRight = "10px";
+					link.style.display="inline-block";
+
+					//button to delete author
+					var button = document.createElement('button');
+					button.authorId = Authors[i].authorId;
+					button.addEventListener("click", function () { 
+						DeleteAuthor(this);
+					});
+					button.innerHTML = "Delete";
+					button.style.color = "red";
+					button.style.backgroundColor = "white";
+					button.style.borderColor = "black";
+					link.innerHTML = Authors[i].authorFName + " " + Authors[i].authorLName; 
+					row.appendChild(link);
+					row.appendChild(button);
+					AuthorResults.appendChild(row);
+
+				}
+			}
+		}
+		//GET information sent through the .send() method
+		rq.send();
+	}
+
+
+	function DeleteAuthor(b) {
+		var id = b.authorId;
+		if (parseInt(id) != id) return;
+		if (!confirm(`Are you sure you want to delete Author # ${id}?`)) return;
+
+		var URL = "/api/Author/DeleteAuthor/"+id;
+
+		var rq = new XMLHttpRequest();
+		// where is this request sent to?
+		// is the method GET or POST?
+		// what should we do with the response
+
+		rq.open("DELETE", URL, true);
+		rq.setRequestHeader("Content-Type", "application/json");
+		rq.onreadystatechange = function () {
+			//ready state should be 4 AND status should be 200
+			if (rq.readyState == 4 && rq.status == 200) {
+				//request is successful and the request is finished
+
+				alert('Deleted successful');
+				ListAuthors(document.getElementById('SearchKey'));
+
+			}
+
+		}
+		//POST information sent through the .send() method
+		rq.send();
+	}
+
+</script>
