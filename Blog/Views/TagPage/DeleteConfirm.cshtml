@@ -1,0 +1,10 @@
+﻿@model Blog.Models.Tag
+
+<h2>Are you sure you want to delete this tag?</h2>
+<p>Tag Name: @Model.TagName</p>
+
+<a href="/TagPage/Show/@Model.TagId">No, take me back</a>
+
+<form method="POST" action="/TagPage/Delete/@Model.TagId">
+    <input type="submit" value="Delete Tag" />
+</form>
