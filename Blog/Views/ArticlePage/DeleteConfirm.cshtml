@@ -1,0 +1,11 @@
+﻿@model Blog.Models.Article
+
+<h2>Are you sure you want to delete the article?</h2>
+
+<p>Title: @Model.ArticleTitle</p>
+
+<a href="/ArticlePage/Show/@Model.ArticleId">No, take me back</a>
+
+<form method="POST" action="/ArticlePage/Delete/@Model.ArticleId">
+    <input type="submit" value="Confirm Delete" />
+</form>
