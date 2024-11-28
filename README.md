@@ -1,5 +1,5 @@
 # ASP.NET Core Blog Application
-This example shows a search feature using parameterized SQL.
+This example shows Add and Delete through an API POST and DELETE request, as well as supporting webpages.
 
 - Models/BlogDbContext.cs
     - A class which represents the connection to the database. Be mindful of the connection string fields!
