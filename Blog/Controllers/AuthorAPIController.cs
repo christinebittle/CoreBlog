@@ -133,9 +133,9 @@ namespace Blog.Controllers
 
                         DateTime AuthorJoinDate = Convert.ToDateTime(ResultSet["authorjoindate"]);
                         string AuthorBio = ResultSet["authorbio"].ToString();
+                        
 
-                        // hidden
-                        // string AuthorEmail = ResultSet["AuthorEmail"].ToString();
+                        string AuthorEmail = ResultSet["AuthorEmail"].ToString();
 
                         int NumArticles = Convert.ToInt32(ResultSet["numarticles"]);
 
@@ -144,7 +144,7 @@ namespace Blog.Controllers
                         SelectedAuthor.AuthorLName = LastName;
                         SelectedAuthor.AuthorBio = AuthorBio;
                         SelectedAuthor.AuthorJoinDate = AuthorJoinDate;
-                        //SelectedAuthor.AuthorEmail = AuthorEmail;
+                        SelectedAuthor.AuthorEmail = AuthorEmail;
                         SelectedAuthor.NumArticles = NumArticles;
                     }
                 }
@@ -161,7 +161,7 @@ namespace Blog.Controllers
         /// </summary>
         /// <param name="AuthorData">Author Object</param>
         /// <example>
-        /// POST: api/AuthorData/AddAuthor
+        /// POST: api/Author/AddAuthor
         /// Headers: Content-Type: application/json
         /// Request Body:
         /// {
@@ -207,7 +207,7 @@ namespace Blog.Controllers
         /// </summary>
         /// <param name="AuthorId">Primary key of the author to delete</param>
         /// <example>
-        /// DELETE: api/AuthorData/DeleteAuthor -> 1
+        /// DELETE: api/Author/DeleteAuthor -> 1
         /// </example>
         /// <returns>
         /// Number of rows affected by delete operation.
@@ -230,6 +230,59 @@ namespace Blog.Controllers
             }
             // if failure
             return 0;
+        }
+
+        /// <summary>
+        /// Updates an Author in the database. Data is Author object, request query contains ID
+        /// </summary>
+        /// <param name="AuthorData">Author Object</param>
+        /// <example>
+        /// PUT: api/Author/UpdateAuthor/4
+        /// Headers: Content-Type: application/json
+        /// Request Body:
+        /// {
+        ///	    "AuthorFname":"Christine",
+        ///	    "AuthorLname":"Bittle",
+        ///	    "AuthorBio":"Likes Coding!",
+        ///	    "AuthorEmail":"christine@test.ca"
+        /// } -> 
+        /// {
+        ///     "AuthorId":4,
+        ///	    "AuthorFname":"Christine",
+        ///	    "AuthorLname":"Bittle",
+        ///	    "AuthorBio":"Likes Coding!",
+        ///	    "AuthorEmail":"christine@test.ca"
+        /// }
+        /// </example>
+        /// <returns>
+        /// The updated Author object
+        /// </returns>
+        [HttpPut(template: "UpdateAuthor/{AuthorId}")]
+        public Author UpdateAuthor(int AuthorId, [FromBody] Author AuthorData)
+        {
+            // 'using' will close the connection after the code executes
+            using (MySqlConnection Connection = _context.AccessDatabase())
+            {
+                Connection.Open();
+                //Establish a new command (query) for our database
+                MySqlCommand Command = Connection.CreateCommand();
+
+                // parameterize query
+                Command.CommandText = "update authors set authorfname=@authorfname, authorlname=@authorlname, authorbio=@authorbio, authoremail=@authoremail where authorid=@id";
+                Command.Parameters.AddWithValue("@authorfname", AuthorData.AuthorFName);
+                Command.Parameters.AddWithValue("@authorlname", AuthorData.AuthorLName);
+                Command.Parameters.AddWithValue("@authorbio", AuthorData.AuthorBio);
+                Command.Parameters.AddWithValue("@authoremail", AuthorData.AuthorEmail);
+
+                Command.Parameters.AddWithValue("@id", AuthorId);
+
+                Command.ExecuteNonQuery();
+
+                
+
+            }
+
+            return FindAuthor(AuthorId);
         }
     }
 }

@@ -1,0 +1,33 @@
+﻿@model Blog.Models.Author
+
+<div id="containershow">
+    <nav>
+        <a class="navlink" href="/AuthorPage/Show/@Model.AuthorId">Back</a>
+    </nav>
+    <h2>New Author</h2>
+    <form method="POST" action="/AuthorPage/Update/@Model.AuthorId">
+        <div class="inputrow">
+            <label for="AuthorFname">First Name:</label>
+            <input type="text" id="AuthorFname" name="AuthorFname" value="@Model.AuthorFName" />
+
+        </div>
+        <div class="inputrow">
+            <label for="AuthorLname">Last Name:</label>
+            <input type="text" id="AuthorLname" name="AuthorLname" value="@Model.AuthorLName" />
+
+        </div>
+        <div class="inputrow">
+            <label for="AuthorEmail">Email:</label>
+            <input type="text" id="AuthorEmail" name="AuthorEmail" value="@Model.AuthorEmail" />
+        </div>
+        <div class="inputrow">
+            <label for="AuthorBio">Biography:</label>
+            <div>
+                <textarea id="AuthorBio" name="AuthorBio">@Model.AuthorBio</textarea>
+            </div>
+        </div>
+        <div class="inputrow">
+            <input type="submit" value="Update Author" />
+        </div>
+    </form>
+</div>
