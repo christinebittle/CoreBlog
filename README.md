@@ -1,5 +1,5 @@
 # ASP.NET Core Blog Application
-This example shows a search feature using parameterized SQL.
+This example showcases Update functionality with an API PUT request as well as an MVC webpage.
 
 - Models/BlogDbContext.cs
     - A class which represents the connection to the database. Be mindful of the connection string fields!
@@ -36,19 +36,10 @@ This example shows a search feature using parameterized SQL.
 ## Exercises
 Test Your Understanding by accomplishing these tasks!
 
-### Exercise 7
-- Build Add functionality with the Article API
-- Build Delete functionality with the Article API
-- Add and Delete Articles through web pages
+### Exercise 12
+- Build Update functionality with the Article API
+- Build Update Article through a web page
 
-### Exercise 8
-- Build Add functionality with the Tag API
-- Build Delete functionality with the Tag API
-- Add and Delete Tags through web pages
-
-### Exercise 9 (bonus)
-- Use JS and AJAX to create an XMLHttpRequestObject
-- Set the request to /api/Author/Delete/{id}
-- Set the Http verb to DELETE
-- Send the request through JS
-- Monitor the network tab to see the response!
+### Exercise 13
+- Build Update functionality with the Tag API
+- Build Update Tag through a web page
