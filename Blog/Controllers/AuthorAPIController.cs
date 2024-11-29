@@ -236,6 +236,7 @@ namespace Blog.Controllers
         /// Updates an Author in the database. Data is Author object, request query contains ID
         /// </summary>
         /// <param name="AuthorData">Author Object</param>
+        /// <param name="AuthorId">The Author ID primary key</param>
         /// <example>
         /// PUT: api/Author/UpdateAuthor/4
         /// Headers: Content-Type: application/json
