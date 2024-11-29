@@ -16,7 +16,7 @@
 	function _ListAuthors(d){
 		console.log('waiting..');
 		if (d.timer) clearTimeout(d.timer);
-		d.timer = setTimeout(ListAuthors(d),300);
+		d.timer = setTimeout(ListAuthors(d),2000);
 	}
 
 	// ajax list
@@ -31,7 +31,7 @@
 		AuthorResults.innerHTML = ""; //clear previous results
 
 		rq.open("GET", URL, true);
-		rq.setRequestHeader("Content-Type", "application/json");
+		//rq.setRequestHeader("Content-Type", "application/json");
 		rq.onreadystatechange = function () {
 			//ready state should be 4 AND status should be 200
 			if (rq.readyState == 4 && rq.status == 200) {
@@ -87,7 +87,7 @@
 		// what should we do with the response
 
 		rq.open("DELETE", URL, true);
-		rq.setRequestHeader("Content-Type", "application/json");
+		//rq.setRequestHeader("Content-Type", "application/json");
 		rq.onreadystatechange = function () {
 			//ready state should be 4 AND status should be 200
 			if (rq.readyState == 4 && rq.status == 200) {

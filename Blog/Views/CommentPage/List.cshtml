@@ -1,0 +1,9 @@
+﻿@model List<Blog.Models.Comment>
+
+<h1>We want this page to show comments</h1>
+<ul>
+@foreach (Comment CurrentComment in Model)
+{
+    <li>@CurrentComment.CommentDesc (rating: @CurrentComment.Rating)</li>
+}
+</ul>
