@@ -1,0 +1,16 @@
+﻿@model Blog.Models.ToDo
+
+<h2>Groceries</h2>
+<ul>
+    @foreach (string Grocery in Model.Groceries)
+    {
+        <li>@Grocery</li>
+    }
+</ul>
+<h2>Chores</h2>
+<ul>
+    @foreach (string Chore in Model.Chores)
+    {
+        <li>@Chore</li>
+    }
+</ul>

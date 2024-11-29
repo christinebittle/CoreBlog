@@ -31,7 +31,7 @@
 		AuthorResults.innerHTML = ""; //clear previous results
 
 		rq.open("GET", URL, true);
-		rq.setRequestHeader("Content-Type", "application/json");
+		
 		rq.onreadystatechange = function () {
 			//ready state should be 4 AND status should be 200
 			if (rq.readyState == 4 && rq.status == 200) {

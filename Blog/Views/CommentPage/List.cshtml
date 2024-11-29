@@ -1,0 +1,9 @@
+﻿@model List<Blog.Models.Comment>
+
+<h1>This is a page of comments</h1>
+
+@foreach(Comment Comment in Model)
+{
+    <a style="display:block;">@Comment.CommentId - @Comment.CommentDesc</a>
+
+}
