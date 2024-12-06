@@ -1,0 +1,17 @@
+﻿@model Blog.Models.Article
+
+<h2>Edit the Article</h2>
+
+<form method="POST" action="/ArticlePage/Update/@Model.ArticleId">
+    <div>
+        <label for="ArticleTitle">Title:</label>
+        <input type="text" name="ArticleTitle" id="ArticleTitle" value="@Model.ArticleTitle" />
+    </div>
+    <div>
+        <label for="ArticleBody">Content:</label>
+        <textarea name="ArticleBody" id="ArticleBody">@Model.ArticleBody</textarea>
+    </div>
+    <div>
+        <input type="submit" value="Update Article" />
+    </div>
+</form>

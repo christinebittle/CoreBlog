@@ -1,0 +1,8 @@
+﻿@model Blog.Models.Article
+
+
+<h1>@Model.ArticleTitle</h1>
+<a style="color:#ab2020; margin-right:20px; display:inline-block;" href="/ArticlePage/DeleteConfirm/@Model.ArticleId">Delete</a>
+<a href="/ArticlePage/Edit/@Model.ArticleId">Edit</a>
+<p>Num Comments: @Model.NumComments</p>
+<p>@Model.ArticleBody</p>

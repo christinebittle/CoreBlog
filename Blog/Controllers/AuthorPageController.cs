@@ -33,7 +33,7 @@ namespace Blog.Controllers
             return View(SelectedAuthor);
         }
 
-        // GET : AuthorPage/New
+        // GET : AuthorPage/New -> A webpage that asks the user for new Author information
         [HttpGet]
         public IActionResult New(int id)
         {
@@ -90,6 +90,8 @@ namespace Blog.Controllers
             // redirects to show author
             return RedirectToAction("Show", new{id = id});
         }
+
+        
 
     }
 }
