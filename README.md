@@ -1,5 +1,5 @@
 # ASP.NET Core Blog Application
-This example showcases Update functionality with an API PUT request as well as an MVC webpage.
+This example showcases relational content management, starting with read functionality.
 
 - Models/BlogDbContext.cs
     - A class which represents the connection to the database. Be mindful of the connection string fields!
@@ -36,10 +36,17 @@ This example showcases Update functionality with an API PUT request as well as a
 ## Exercises
 Test Your Understanding by accomplishing these tasks!
 
-### Exercise 12
-- Build Update functionality with the Article API
-- Build Update Article through a web page
+### Exercise 14
+- Implement ListArticlesForTag
+- Use a ViewModel to display Articles on the Tag Page
 
-### Exercise 13
-- Build Update functionality with the Tag API
-- Build Update Tag through a web page
+### Exercise 15
+- Implement ListTagsForArticle
+- Use a ViewModel to display Tags on the Article Page
+
+### Exercise 16
+- Implement Link and Unlink Tag to Article
+- On Article/Details page, design an interface that allows users to associate and unassociate tags to that article
+- Build a ViewModel that provides the information that /Article/Details needs to show the interface to the user
+- When the user links the tag, call Link
+- When the user unlinks the tag, call Unlink
