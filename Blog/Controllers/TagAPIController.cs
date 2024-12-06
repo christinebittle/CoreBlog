@@ -206,6 +206,8 @@ namespace Blog.Controllers
         /// <returns>
         /// The tag which we had just updated
         /// </returns>
+        /// <param name="TagId">The tag id primary key</param>
+        /// <param name="UpdatedTag">Tag Data</param>
         /// <example>
         /// PUT : api/TagAPI/UpdateTag/4
         /// Headers: Content-Type: application/json
