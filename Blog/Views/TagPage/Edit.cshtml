@@ -1,0 +1,17 @@
+﻿@model Blog.Models.Tag
+
+<h2>Edit Tag</h2>
+
+<form method="POST" action="/TagPage/Update/@Model.TagId">
+    <div>
+        <label for="TagName">Description:</label>
+        <input type="text" name="TagName" id="TagName" value="@Model.TagName" />
+    </div>
+    <div>
+        <label for="TagColor">Color:</label>
+        <input type="text" name="TagColor" id="TagColor" value="@Model.TagColor" />
+    </div>
+    <div>
+        <input type="submit" value="Update" />
+    </div>
+</form>
