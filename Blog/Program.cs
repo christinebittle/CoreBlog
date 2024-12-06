@@ -16,6 +16,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<BlogDbContext>();
 // API for now, but should be added as separate Author Service
 builder.Services.AddScoped<AuthorAPIController>();
+builder.Services.AddScoped<ArticleAPIController>();
+builder.Services.AddScoped<CommentAPIController>();
+builder.Services.AddScoped<TagAPIController>();
 
 var app = builder.Build();
 

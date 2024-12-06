@@ -1,11 +1,28 @@
-﻿@model Blog.Models.Author
-<h1>@Model.AuthorFName @Model.AuthorLName</h1>
+﻿@model Blog.Models.ViewModels.ShowAuthor
+<h1>@Model.Author.AuthorFName @Model.Author.AuthorLName</h1>
 <nav>
     <a href="/AuthorPage/List">Back to List</a>
-    <a class="alert-warning" href="/AuthorPage/DeleteConfirm/@Model.AuthorId">Delete</a>
-    <a href="/AuthorPage/Edit/@Model.AuthorId">Edit</a>
+    <a class="alert-warning" href="/AuthorPage/DeleteConfirm/@Model.Author.AuthorId">Delete</a>
+    <a href="/AuthorPage/Edit/@Model.Author.AuthorId">Edit</a>
 </nav>
 
-<p><span style="font-style:italic">Joined: @Model.AuthorJoinDate.ToString("yyyy-M-d")</span></p>
-<p><span style="font-style:italic">Articles Written: @Model.NumArticles</span></p>
-<p>@Model.AuthorBio</p>
+<p><span style="font-style:italic">Joined: @Model.Author.AuthorJoinDate.ToString("yyyy-M-d")</span></p>
+<p><span style="font-style:italic">Articles Written: @Model.Author.NumArticles</span></p>
+<p>@Model.Author.AuthorBio</p>
+<h3>Articles Written:</h3>
+<ol>
+    @foreach( Article article in Model.ArticlesWritten)
+    {
+        <li><a href="/ArticlePage/Show/@article.ArticleId">@article.ArticleTitle</a></li>
+    }
+</ol>
+<h3>Comments Written:</h3>
+<ol>
+    @*
+        //note: might be better to link article which comment was written on
+    *@
+    @foreach (Comment comment in Model.CommentsWritten)
+    {
+        <li><a href="/ArticlePage/Show/@comment.CommentId">@comment.CommentDesc</a></li>
+    }
+</ol>
