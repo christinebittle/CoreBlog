@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Blog.Models;
+using MySql.Data.MySqlClient;
 
 namespace Blog.Controllers
 {
@@ -10,6 +11,13 @@ namespace Blog.Controllers
     {
         // tag Create, Read, Update, Delete
 
+        // get information about the database
+        private readonly BlogDbContext _context;
+        // referred to the example
+        public TagAPIController(BlogDbContext context)
+        {
+            _context = context;
+        }
 
         /// <summary>
         /// Receives an Article Id, returns all tags for that article
@@ -23,8 +31,60 @@ namespace Blog.Controllers
         [HttpGet(template:"ListTagsForArticle/{ArticleId}")]
         public List<Tag> ListTagsForArticle(int ArticleId)
         {
-            //todo: implement
-            return new List<Tag>();
+            
+
+            List<Tag> Tags = new List<Tag>();
+
+            using (MySqlConnection Connection = _context.AccessDatabase())
+            {
+                //Create a connection to the database
+
+                //open the connection to the database
+                Connection.Open();
+
+                //create a database command
+                MySqlCommand Command = Connection.CreateCommand();
+
+                //create a string for the query ""
+                string query = "SELECT articleid, tags.tagname, tags.tagcolor, tags.tagid FROM `articlesxtags` inner join tags on tags.tagid = articlesxtags.tagid WHERE articleid=@articleid";
+
+                //set the database command text to the query
+                Command.CommandText = query;
+
+                Command.Parameters.AddWithValue("@articleid", ArticleId);
+
+                Command.Prepare();
+
+                // Gather Result Set of Query into a variable
+
+
+
+                using (MySqlDataReader ResultSet = Command.ExecuteReader())
+                {
+                    //read through the results in a loop
+                    while (ResultSet.Read())
+                    {
+                        Tag CurrentTag = new Tag();
+                        // for each result, gather the article information
+
+                        CurrentTag.TagId = Convert.ToInt32(ResultSet["tagid"]);
+
+                        CurrentTag.TagName = ResultSet["tagname"].ToString();
+
+                        CurrentTag.TagColor = ResultSet["tagcolor"].ToString(); ;
+                        
+                        Tags.Add(CurrentTag);
+                    }
+
+                }
+
+            }
+
+
+            //return the articles
+            return Tags;
+
+            
         }
 
         /// <summary>
