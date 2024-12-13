@@ -8,5 +8,7 @@
         public string TagName { get; set; }
 
         public string TagColor { get; set; }
+
+        public int NumArticles { get; set; }
     }
 }

@@ -31,8 +31,55 @@ namespace Blog.Controllers
         [HttpGet(template: "ListArticlesForTag/{TagId}")]
         public List<Article> ListArticlesForTag(int TagId)
         {
-            //todo: implement
-            return new List<Article>();
+            
+
+            //create an empty list for the article titles
+            List<Article> Articles = new List<Article>();
+
+            using (MySqlConnection Connection = _context.AccessDatabase())
+            {
+                //Create a connection to the database
+
+                //open the connection to the database
+                Connection.Open();
+
+                //create a database command
+                MySqlCommand Command = Connection.CreateCommand();
+
+                string query = "select articles.* from articles inner join articlesxtags on articles.articleid=articlesxtags.articleid where articlesxtags.tagid=@tagid";
+
+                //set the database command text to the query
+                Command.CommandText = query;
+
+                Command.Parameters.AddWithValue("@tagid", TagId);
+
+                Command.Prepare();
+
+                // Gather Result Set of Query into a variable
+
+
+
+                using (MySqlDataReader ResultSet = Command.ExecuteReader())
+                {
+                    //read through the results in a loop
+                    while (ResultSet.Read())
+                    {
+                        Article CurrentArticle = new Article();
+                        // for each result, gather the article information
+                        CurrentArticle.ArticleId = Convert.ToInt32(ResultSet["articleid"]);
+                        CurrentArticle.ArticleTitle = ResultSet["articletitle"].ToString();
+                        CurrentArticle.ArticleBody = ResultSet["articlebody"].ToString();
+
+                        Articles.Add(CurrentArticle);
+                    }
+
+                }
+
+            }
+            return Articles;
+
+
+            
         }
 
         /// <summary>

@@ -1,0 +1,15 @@
+﻿@model IEnumerable<Blog.Models.Tag>
+
+<h1>Tags</h1>
+
+<a href="/TagPage/New">New Tag</a>
+
+<form method="GET" action="/TagPage/List">
+    <input type="text" name="SearchKey" /> <input type="submit" value="Search" />
+</form>
+
+@foreach (Blog.Models.Tag CurrentTag in Model)
+{
+    <div><a href="/TagPage/Show/@CurrentTag.TagId">@CurrentTag.TagName</a></div>
+
+}

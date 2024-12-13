@@ -1,0 +1,16 @@
+﻿@model Blog.Models.ViewModels.ShowTag
+
+<h1>@Model.SelectedTag.TagName</h1>
+<a href="/TagPage/DeleteConfirm/@Model.SelectedTag.TagId" style="color:#ab2020; margin-right:20px; display:inline-block;">Delete Tag</a>
+<a href="/TagPage/Edit/@Model.SelectedTag.TagId">Edit</a>
+<p>Articles with this tag: @Model.SelectedTag.NumArticles</p>
+<div style="width:100px; height:100px; background:#@Model.SelectedTag.TagColor">&nbsp;</div>
+
+<h3>Articles for this tag:</h3>
+<ul>
+@foreach (Article article in Model.ArticlesRelated)
+{
+    <li> <a href="">@article.ArticleTitle</a></li>
+   
+}
+</ul>
